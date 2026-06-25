@@ -67,7 +67,6 @@ const localizedContent = {
       switchTo: "Cambiar idioma a",
     },
     hero: {
-      eyebrow: "Perfil",
       title: "Mario Limones Bernabé",
       description:
         "Desarrollador Full-Stack Junior con foco en Java y Spring Boot, experiencia construyendo APIs REST, CRUDs e integraciones con MySQL, y criterio para llevar esa logica a interfaces claras con React.",
@@ -301,7 +300,6 @@ const localizedContent = {
       switchTo: "Switch language to",
     },
     hero: {
-      eyebrow: "Profile",
       title: "Mario Limones Bernabé",
       description:
         "Junior Full-Stack Developer focused on Java and Spring Boot, with hands-on experience building REST APIs, CRUD systems, and MySQL integrations, plus the judgement to turn that logic into clean React interfaces.",
@@ -770,6 +768,7 @@ function App() {
   const chatPanelRef = useRef(null);
   const languageMenuRef = useRef(null);
   const dragOffsetRef = useRef({ x: 0, y: 0 });
+  const lastScrollYRef = useRef(0);
   const [theme, setTheme] = useState(getStoredTheme);
   const [locale, setLocale] = useState(getStoredLocale);
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
@@ -779,7 +778,7 @@ function App() {
   );
   const [projectPage, setProjectPage] = useState(0);
   const [expandedProjectId, setExpandedProjectId] = useState(null);
-  const [selectedExperienceIndex, setSelectedExperienceIndex] = useState(1);
+  const [selectedExperienceIndex, setSelectedExperienceIndex] = useState(0);
   const [selectedInquiryId, setSelectedInquiryId] = useState("hire-full-time");
   const [chatWidgetOpen, setChatWidgetOpen] = useState(false);
   const [chatWidgetRendered, setChatWidgetRendered] = useState(false);
@@ -791,6 +790,7 @@ function App() {
   const [contactPhone, setContactPhone] = useState("");
   const [chatPanelPosition, setChatPanelPosition] = useState({ x: null, y: null });
   const [draggingChatPanel, setDraggingChatPanel] = useState(false);
+  const [mobileHeaderHidden, setMobileHeaderHidden] = useState(false);
 
   const content = localizedContent[locale];
   const currentLanguage =
@@ -837,6 +837,10 @@ function App() {
   useEffect(() => {
     const syncProjectsPerPage = () => {
       setProjectsPerPage(getProjectsPerPage(window.innerWidth));
+
+      if (window.innerWidth > 640) {
+        setMobileHeaderHidden(false);
+      }
     };
 
     syncProjectsPerPage();
@@ -856,10 +860,26 @@ function App() {
     };
 
     const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
       if (!glowRef.current) return;
-      glowRef.current.style.transform = `translate3d(0, ${window.scrollY * 0.08}px, 0)`;
+
+      glowRef.current.style.transform = `translate3d(0, ${currentScrollY * 0.08}px, 0)`;
+
+      if (window.innerWidth > 640) {
+        lastScrollYRef.current = currentScrollY;
+        setMobileHeaderHidden(false);
+        return;
+      }
+
+      const scrollingDown = currentScrollY > lastScrollYRef.current;
+      const shouldHideHeader = scrollingDown && currentScrollY > 72;
+
+      setMobileHeaderHidden(shouldHideHeader);
+      lastScrollYRef.current = currentScrollY;
     };
 
+    handleScroll();
     window.addEventListener("pointermove", handlePointerMove);
     window.addEventListener("scroll", handleScroll, { passive: true });
 
@@ -1077,7 +1097,7 @@ function App() {
     <>
       <div ref={glowRef} className="page-glow"></div>
 
-      <header className="site-header">
+      <header className={`site-header${mobileHeaderHidden ? " is-hidden" : ""}`}>
         <nav className="site-nav">
           <a href="#about">{content.nav.about}</a>
           <a href="#projects">{content.nav.projects}</a>

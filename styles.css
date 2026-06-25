@@ -226,6 +226,9 @@ main {
   left: 50%;
   z-index: 3;
   transform: translateX(-50%);
+  transition:
+    transform 220ms ease,
+    opacity 220ms ease;
 }
 
 .site-nav {
@@ -327,15 +330,15 @@ main {
 .locale-menu {
   position: absolute;
   top: calc(100% + 0.55rem);
-  right: 0;
+  left: 0;
   z-index: 4;
   display: grid;
   gap: 0.2rem;
-  min-width: 10.5rem;
+  min-width: 11rem;
   padding: 0.4rem;
   border: 1px solid var(--nav-border);
   border-radius: 1.1rem;
-  background: var(--nav-bg);
+  background: linear-gradient(180deg, rgba(16, 22, 36, 0.98), rgba(11, 16, 28, 0.98));
   backdrop-filter: blur(18px);
   box-shadow: var(--nav-shadow);
 }
@@ -345,18 +348,24 @@ main {
   align-items: center;
   gap: 0.6rem;
   width: 100%;
+  min-width: 0;
   padding: 0.75rem 0.9rem;
   border: 0;
   border-radius: 0.85rem;
   background: transparent;
   color: var(--muted);
   font: inherit;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   text-align: left;
+  white-space: nowrap;
   cursor: pointer;
   transition:
     color 180ms ease,
     background-color 180ms ease;
+}
+
+.locale-option > span:last-child {
+  min-width: 0;
 }
 
 .locale-option:hover,
@@ -1693,7 +1702,7 @@ main {
   .hero {
     min-height: auto;
     gap: 2.5rem;
-    padding-top: 9.5rem;
+    padding-top: 7.75rem;
   }
 
   .hero-side {
@@ -1797,7 +1806,7 @@ main {
 
   .hero {
     gap: 1.75rem;
-    padding-top: 10.5rem;
+    padding-top: 7.4rem;
   }
 
   .hero h1,
@@ -1833,6 +1842,40 @@ main {
 
   .contact-lead {
     font-size: 0.98rem;
+  }
+
+  .contact-card-grid {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 100%;
+    gap: 0.85rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 0 0.95rem;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(116, 208, 255, 0.88) rgba(255, 255, 255, 0.08);
+  }
+
+  .contact-card-grid::-webkit-scrollbar {
+    height: 0.42rem;
+  }
+
+  .contact-card-grid::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+  }
+
+  .contact-card-grid::-webkit-scrollbar-thumb {
+    background: rgba(116, 208, 255, 0.88);
+    border-radius: 999px;
+  }
+
+  .contact-card-grid .contact-choice-card {
+    min-height: 15rem;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
 
   .chat-widget {
@@ -1928,11 +1971,19 @@ main {
   }
 
   .locale-menu {
-    top: auto;
-    right: 0;
-    bottom: calc(100% + 0.55rem);
-    min-width: 100%;
+    top: calc(100% + 0.55rem);
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    bottom: auto;
+    min-width: 11rem;
     margin-right: 0;
+  }
+
+  .site-header.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, calc(-100% - 0.75rem));
   }
 
   .ticker-track {
