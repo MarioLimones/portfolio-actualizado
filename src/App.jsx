@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 
+function asset(path) {
+  return `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`;
+}
+
 const techCarouselItems = [
-  { name: "Java", icon: "/java-coffee.svg" },
+  { name: "Java", icon: asset("/java-coffee.svg") },
   { name: "Spring Boot", icon: "https://cdn.simpleicons.org/springboot/6DB33F" },
   { name: "MySQL", icon: "https://cdn.simpleicons.org/mysql/5AA9E6" },
   { name: "SQL", icon: "https://cdn.simpleicons.org/sqlite/8BD3FF" },
@@ -22,7 +26,7 @@ const techCarouselItems = [
 ];
 
 const projectTechIcons = {
-  Java: "/java-coffee.svg",
+  Java: asset("/java-coffee.svg"),
   "Spring Boot": "https://cdn.simpleicons.org/springboot/6DB33F",
   MySQL: "https://cdn.simpleicons.org/mysql/5AA9E6",
   React: "https://cdn.simpleicons.org/react/7DD3FC",
@@ -95,7 +99,7 @@ const localizedContent = {
           description:
             "Aplicacion full-stack con arquitectura por capas, API REST, operaciones CRUD y persistencia en MySQL consumida desde una interfaz en React.",
           stack: ["Java", "Spring Boot", "MySQL", "React"],
-          image: "/app-preguntas.png",
+          image: asset("/app-preguntas.png"),
           linkLabel: "Ver repositorio",
           linkHref: "https://github.com/MarioLimones/app_preguntas",
         },
@@ -105,7 +109,7 @@ const localizedContent = {
           description:
             "App Android para gestion de tareas personales con almacenamiento local y una interfaz simple, clara y orientada al uso diario.",
           stack: ["Android", "Kotlin", "Persistencia local"],
-          image: "/gestor-tareas.png",
+          image: asset("/gestor-tareas.png"),
           linkLabel: "Ver repositorio",
           linkHref: "https://github.com/MarioLimones/gestor_de_tareas_android",
         },
@@ -115,7 +119,7 @@ const localizedContent = {
           description:
             "Web corporativa desarrollada en WordPress con HTML y CSS para un centro sanitario centrado en psicoterapia, formacion, acompanamiento y asesoramiento.",
           stack: ["WordPress", "HTML5", "CSS3"],
-          image: "/dual-psicologia.png",
+          image: asset("/dual-psicologia.png"),
           linkLabel: "Ver web",
           linkHref: "https://dualpsicologia.com/",
         },
@@ -125,7 +129,7 @@ const localizedContent = {
           description:
             "E-commerce alemana de muebles de bano y equipamiento para el hogar en la que colabore junto a mi jefe, realizando trabajo en WordPress, maquetacion y ajustes visuales de la tienda online.",
           stack: ["WordPress", "HTML5", "CSS3"],
-          image: "/baddelux-banner.png",
+          image: asset("/baddelux-banner.png"),
           linkLabel: "Ver web",
           linkHref: "https://baddelux.com/",
         },
@@ -135,7 +139,7 @@ const localizedContent = {
           description:
             "Mi portfolio anterior, desarrollado con HTML, CSS y un poco de JavaScript, enfocado en presentar proyectos y perfil profesional con una maquetacion sencilla y directa.",
           stack: ["HTML5", "CSS3", "JavaScript"],
-          image: "/antiguo-portfolio.png",
+          image: asset("/antiguo-portfolio.png"),
           linkLabel: "Ver web",
           linkHref: "https://mariolimones.github.io/mlimones/",
         },
@@ -329,7 +333,7 @@ const localizedContent = {
           description:
             "Full-stack application built with layered architecture, a REST API, CRUD operations, and MySQL persistence, consumed from a React interface.",
           stack: ["Java", "Spring Boot", "MySQL", "React"],
-          image: "/app-preguntas.png",
+          image: asset("/app-preguntas.png"),
           linkLabel: "View repository",
           linkHref: "https://github.com/MarioLimones/app_preguntas",
         },
@@ -339,7 +343,7 @@ const localizedContent = {
           description:
             "Android app for personal task management with local storage and a simple, clear interface designed for everyday use.",
           stack: ["Android", "Kotlin", "Local persistence"],
-          image: "/gestor-tareas.png",
+          image: asset("/gestor-tareas.png"),
           linkLabel: "View repository",
           linkHref: "https://github.com/MarioLimones/gestor_de_tareas_android",
         },
@@ -349,7 +353,7 @@ const localizedContent = {
           description:
             "Corporate website built in WordPress with HTML and CSS for a healthcare center focused on psychotherapy, training, guidance, and advisory services.",
           stack: ["WordPress", "HTML5", "CSS3"],
-          image: "/dual-psicologia.png",
+          image: asset("/dual-psicologia.png"),
           linkLabel: "Visit website",
           linkHref: "https://dualpsicologia.com/",
         },
@@ -359,7 +363,7 @@ const localizedContent = {
           description:
             "German ecommerce store for bathroom furniture and home equipment where I collaborated on WordPress work, layout implementation, and visual refinements for the online shop.",
           stack: ["WordPress", "HTML5", "CSS3"],
-          image: "/baddelux-banner.png",
+          image: asset("/baddelux-banner.png"),
           linkLabel: "Visit website",
           linkHref: "https://baddelux.com/",
         },
@@ -369,7 +373,7 @@ const localizedContent = {
           description:
             "My previous portfolio, built with HTML, CSS, and a bit of JavaScript, focused on presenting projects and professional background through a direct, simple layout.",
           stack: ["HTML5", "CSS3", "JavaScript"],
-          image: "/antiguo-portfolio.png",
+          image: asset("/antiguo-portfolio.png"),
           linkLabel: "Visit website",
           linkHref: "https://mariolimones.github.io/mlimones/",
         },
@@ -525,8 +529,8 @@ const languageOptionsUiLegacy = [
 ];
 
 const languageOptionsUi = [
-  { code: "es", label: "Español", flagSrc: "/flags/es.svg" },
-  { code: "en", label: "English", flagSrc: "/flags/gb.svg" },
+  { code: "es", label: "Español", flagSrc: asset("/flags/es.svg") },
+  { code: "en", label: "English", flagSrc: asset("/flags/gb.svg") },
 ];
 
 function InquiryIcon({ kind }) {
@@ -1065,7 +1069,7 @@ function App() {
     ? contactNotice.message ?? content.contact.form.notices[contactNotice.messageKey]
     : null;
   const resumeFile =
-    locale === "en" ? "/Limones_Bernabe_Mario_English_CV.pdf" : "/Limones_Bernabe_Mario_CV.pdf";
+    locale === "en" ? asset("/Limones_Bernabe_Mario_English_CV.pdf") : asset("/Limones_Bernabe_Mario_CV.pdf");
   const resumeDownloadName =
     locale === "en" ? "Limones_Bernabe_Mario_English_CV.pdf" : "Limones_Bernabe_Mario_CV.pdf";
 
@@ -1159,7 +1163,7 @@ function App() {
               <div className="profile-badge">{content.hero.badge}</div>
               <img
                 className="profile-visual"
-                src="/foto-perfil.jpeg"
+                src={asset("/foto-perfil.jpeg")}
                 alt={content.hero.imageAlt}
               />
               <div className="profile-caption">
@@ -1541,3 +1545,4 @@ function App() {
 }
 
 export default App;
+
